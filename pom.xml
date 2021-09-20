@@ -3,7 +3,7 @@
          xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.myorg</groupId>
+    <groupId>org.gscho</groupId>
     <artifactId>ghes-aws-cdk</artifactId>
     <version>0.1</version>
 
@@ -30,7 +30,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>com.myorg.GhesAwsCdkApp</mainClass>
+                    <mainClass>org.gscho.GHESApp</mainClass>
                 </configuration>
             </plugin>
         </plugins>
@@ -41,6 +41,11 @@
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>core</artifactId>
+            <version>${cdk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awscdk</groupId>
+            <artifactId>ec2</artifactId>
             <version>${cdk.version}</version>
         </dependency>
 
