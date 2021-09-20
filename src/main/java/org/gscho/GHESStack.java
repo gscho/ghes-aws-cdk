@@ -37,7 +37,7 @@ public class GHESStack extends Stack {
 	}
 
 	public void prepareStack() {
-		IVpc vpc = Vpc.fromLookup(this, "GHES-Vpc", VpcLookupOptions.builder()
+		IVpc vpc = Vpc.fromLookup(this, "GHES-VPC", VpcLookupOptions.builder()
 				.isDefault(true)
 				.build());
 
@@ -80,7 +80,7 @@ public class GHESStack extends Stack {
 
 		InstanceType type = new InstanceType(getInstanceType());
 
-		Instance.Builder.create(this, "GHES-Ec2Instance")
+		Instance.Builder.create(this, "GHES-EC2")
 				.instanceType(type)
 				.machineImage(ami)
 				.vpc(vpc)

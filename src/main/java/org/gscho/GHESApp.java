@@ -22,12 +22,12 @@ public class GHESApp {
 					}
 				})
 				.build();
-		GHESStack ghesAwsCdkStack = GHESStack.Builder.create(app, "GhesAwsCdkStack", props)
+		GHESStack stack = GHESStack.Builder.create(app, "GHES-Stack", props)
 				.ownerContact("gscho")
 				.serverVersion("3.1.5")
 				.instanceType("r5a.xlarge")
 				.build();
-		ghesAwsCdkStack.prepareStack();
+		stack.prepareStack();
 		app.synth();
 	}
 }
