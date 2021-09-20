@@ -1,15 +1,16 @@
 package org.gscho;
 
-import software.amazon.awscdk.core.App;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import java.io.IOException;
-
-import org.gscho.GHESStack;
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
+import software.amazon.awscdk.core.App;
 
 public class GHESStackTest {
 	private final static ObjectMapper JSON = new ObjectMapper().configure(SerializationFeature.INDENT_OUTPUT, true);
