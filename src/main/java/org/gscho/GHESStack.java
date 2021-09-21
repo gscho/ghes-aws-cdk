@@ -43,6 +43,7 @@ public class GHESStack extends Stack {
 
 		SecurityGroup securityGroup = SecurityGroup.Builder.create(this, "GHES-SecurityGroup")
 				.vpc(vpc)
+				.allowAllOutbound(true)
 				.securityGroupName(String.format("ghes-sg-%s-%s", getOwnerContact(), getServerVersion()))
 				.build();
 
@@ -66,8 +67,6 @@ public class GHESStack extends Stack {
 		Stream.of(SNMP, VPN)
 				.forEach(port -> securityGroup.addIngressRule(Peer.anyIpv4(), Port.udp(port)));
 
-		securityGroup.addEgressRule(Peer.anyIpv4(), Port.allTraffic());
-		securityGroup.addEgressRule(Peer.anyIpv4(), Port.allIcmp());
 
 		LookupMachineImage ami = (LookupMachineImage) MachineImage.lookup(LookupMachineImageProps.builder()
 				.name(String.format("GitHub Enterprise Server %s", getServerVersion()))
