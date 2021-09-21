@@ -46,12 +46,27 @@ public class GHESStack extends Stack {
 				.securityGroupName(String.format("ghes-sg-%s-%s", getOwnerContact(), getServerVersion()))
 				.build();
 
-		Stream.of(22, 25, 80, 122, 443, 1194, 9418, 8080, 8443)
+		// TCP Ports
+		final int GIT_SSH = 22;
+		final int SMTP = 25;
+		final int HTTP = 80;
+		final int SSH = 122;
+		final int HTTPS = 443;
+		final int MGMT_HTTP = 8080;
+		final int MGMT_HTTPS = 8443;
+		final int GIT = 9418;
+
+		Stream.of(GIT_SSH, SMTP, HTTP, SSH, HTTPS, MGMT_HTTP, MGMT_HTTPS, GIT)
 				.forEach(port -> securityGroup.addIngressRule(Peer.anyIpv4(), Port.tcp(port)));
 
-		Stream.of(22, 25, 80, 122, 443, 1194, 9418, 8080, 8443)
-				.forEach(port -> securityGroup.addEgressRule(Peer.anyIpv4(), Port.tcp(port)));
+		// UDP Ports
+		final int SNMP = 161; // UDP
+		final int VPN = 1194; // UDP
 
+		Stream.of(SNMP, VPN)
+				.forEach(port -> securityGroup.addIngressRule(Peer.anyIpv4(), Port.udp(port)));
+
+		securityGroup.addEgressRule(Peer.anyIpv4(), Port.allTraffic());
 		securityGroup.addEgressRule(Peer.anyIpv4(), Port.allIcmp());
 
 		LookupMachineImage ami = (LookupMachineImage) MachineImage.lookup(LookupMachineImageProps.builder()
